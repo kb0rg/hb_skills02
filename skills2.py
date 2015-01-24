@@ -72,7 +72,7 @@ def common_items(list1, list2):
     Given two lists, return a list of the common items shared between 
     the lists.
 
-    IMPORTANT: you may not not 'if ___ in ___' or the method 'index'.
+    IMPORTANT: you may not not 'if ___ in ___' or the method 'index'.  
 
 
     For example:
@@ -92,6 +92,7 @@ def common_items(list1, list2):
         [1, 1, 2, 2]
 
     """
+
 
     return []
 
