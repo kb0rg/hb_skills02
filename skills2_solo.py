@@ -153,6 +153,16 @@ def unique_common_items(list1, list2):
 
     """
 
+    #### attempt1
+
+    """
+    I think I can do this with sets -- but since the directions
+    indicate I should be able to do it with lists and dicts,
+    I want to understand how to make that work....
+    """
+
+    #### reuse code from common_items attempt 1 
+    #### then iterate thru list to weed out dupes?
     list1_dict = {}
     list2_dict = {}
 
@@ -185,10 +195,17 @@ def unique_common_items(list1, list2):
         if common_items_dict[key] > 1: 
             # print common_items_dict[key]
             common_items_list += [key] * common_items_dict.get(key)
-    # print common_items_list
+    # print "unfiltered common items list is ", common_items_list
+
+    for item1 in common_items_list:
+        for item2 in common_items_list:
+            if item1 == item2:
+                common_items_list.pop(item2)
+    # print "final unique common items list is ",common_items_list
+
     return common_items_list
 
-    # fails 2 of 2
+    ### passes! but feels really cumbersome and clunky
 
 
 def sum_zero(list1):
@@ -216,20 +233,25 @@ def sum_zero(list1):
         [[-2, 2], [-1, 1], [0, 0]]
 
     """
-    #### attemp1 
-    # dict_of_zero_pairs = {}
 
-    # for item1 in list1:
-    #     for item2 in list1:
-    #         if item1 + item2 == 0:
-    #             dict_of_zero_pairs[item1] = dict_of_zero_pairs.get(item1, item2)
+    ### passes -- but -- after many attempts without,
+    ### the attempt that passes uses a form of "if __ in __" -- that ok???
+
+    ### attemp1 
+    dict_of_zero_pairs = {}
+
+    for item1 in list1:
+        for item2 in list1:
+            if item1 + item2 == 0:
+                dict_of_zero_pairs[item1] = dict_of_zero_pairs.get(item1, item2)
+    # print dict_of_zero_pairs
 
     # list_of_zero_pairs = dict_of_zero_pairs.items()
     # print list_of_zero_pairs
-    ### ends up with list of tuples instead of list of lists
-    ### AND doesn't weed out inverted dupes
+    # ## ends up with list of tuples instead of list of lists
+    # ## AND doesn't weed out inverted dupes
 
-    ### attempt2
+    # ## attempt2
     # raw_set_of_zero_pairs = set()
 
     # for item1 in list1:
@@ -237,15 +259,15 @@ def sum_zero(list1):
     #         if item1 + item2 == 0:
     #             raw_set_of_zero_pairs.add((item1, item2))
     # print raw_set_of_zero_pairs
-    ### ends up with list of tuples instead of list of lists
-    ### AND doesn't weed out inverted dupes
-    ### AND prints literally as a set: "set([list of tuples])"
+    # ## ends up with list of tuples instead of list of lists
+    # ## AND doesn't weed out inverted dupes
+    # ## AND prints literally as a set: "set([list of tuples])"
 
     # for (num1, num2) in raw_set_of_zero_pairs:
     #     set.remove((num2, num1))
     # ## TypeError: descriptor 'remove' requires a 'set' object but received a 'tuple'
 
-    ###attempt3
+    # ##attempt3
     # raw_list_of_zero_pairs = []
 
     # for item1 in list1:
@@ -266,6 +288,35 @@ def sum_zero(list1):
     there must be a better way.
     """
 
+    # ###attempt4
+    # raw_list_of_zero_pairs = []
+    # for k, v in dict_of_zero_pairs.iteritems():
+    #     raw_list_of_zero_pairs.append([k,v])
+    # ### this is redundant.. I think
+    # print raw_list_of_zero_pairs
+
+    # ###attempt5
+    # raw_list_of_zero_pairs = dict_of_zero_pairs.items()
+    # print raw_list_of_zero_pairs
+    # ### no. was not redundant, bc iteritems returns iterable,
+    # ### and items returns list of tuples not lists
+
+    ###attempt6
+    raw_list_of_zero_pairs = []
+    for k, v in dict_of_zero_pairs.iteritems():
+        raw_list_of_zero_pairs.append([k,v])
+    # print raw_list_of_zero_pairs
+
+    clean_list_of_zero_pairs = []
+    for pairA, pairB in raw_list_of_zero_pairs:
+        if [pairB, pairA] not in clean_list_of_zero_pairs:
+            clean_list_of_zero_pairs.append([pairA, pairB])
+    # print clean_list_of_zero_pairs
+    ### I really can not figure out how to do this without some form of "if __ in __"
+
+    return clean_list_of_zero_pairs
+
+    ### passes -- but -- uses form of "if __ in __" -- that ok???
 
 def find_duplicates(words):
     """Given a list of words, return the list with duplicates removed.
