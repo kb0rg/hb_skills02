@@ -92,43 +92,74 @@ def common_items(list1, list2):
         [1, 1, 2, 2]
 
     """
-    list1_dict = {}
-    list2_dict = {}
+    # ###attempt1
+    # list1_dict = {}
+    # list2_dict = {}
 
-    for item in list1:
-        list1_dict[item] = list1_dict.get(item, 0) + 1
-    # print list1_dict
-    for item in list2:
-        list2_dict[item] = list2_dict.get(item, 0) + 1
-    # print list2_dict
+    # for item in list1:
+    #     list1_dict[item] = list1_dict.get(item, 0) + 1
+    # # print list1_dict
+    # for item in list2:
+    #     list2_dict[item] = list2_dict.get(item, 0) + 1
+    # # print list2_dict
+
+    # common_items_dict = {}
+
+    # # print "processing list1_dict:"
+    # for key in list1_dict:
+    #     # print key
+    #     common_items_dict[key] = common_items_dict.get(key, 0) + 1
+    #     # print key
+    #     # print common_items_dict.get(key, 0)
+    # # print "processing list2_dict:"
+    # for key in list2_dict:
+    #     common_items_dict[key] = common_items_dict.get(key, 0) + 1
+    #     # print key
+    #     # print common_items_dict.get(key, 0)
+    
+    # # print "list1 and list2 dicts combined is:"
+    # # print common_items_dict
+
+    # common_items_list = []
+    # for key in common_items_dict:
+    #     if common_items_dict[key] > 1: 
+    #         # print common_items_dict[key]
+    #         common_items_list += [key] * common_items_dict.get(key)
+    # # print common_items_list
+    # return common_items_list
+
+    # # fails 1 of 3
+    # # EX01 Expected:
+    # # [1, 2]
+    # # Got:
+    # # [1, 1, 2, 2]
+
+
+    """
+    I think I can do this with sets -- but since the directions
+    indicate I should be able to do it with lists and dicts,
+    I want to understand how to make that work....
+    """
+
+    ### attempt2
 
     common_items_dict = {}
 
-    # print "processing list1_dict:"
-    for key in list1_dict:
-        # print key
-        common_items_dict[key] = common_items_dict.get(key, 0) + 1
-        # print key
-        # print common_items_dict.get(key, 0)
-    # print "processing list2_dict:"
-    for key in list2_dict:
-        common_items_dict[key] = common_items_dict.get(key, 0) + 1
-        # print key
-        # print common_items_dict.get(key, 0)
-    
-    # print "list1 and list2 dicts combined is:"
-    # print common_items_dict
+    for item in list1:
+        common_items_dict[item] = common_items_dict.get(item, -1) + 1
+    # print "dict with list 1 items is: ", common_items_dict
+    for item in list2:
+        if common_items_dict.get(item, 0) <= 1:
+            common_items_dict[item] = common_items_dict.get(item, -1) + 1
+    # print "dict with list2 items is: ", common_items_dict
 
     common_items_list = []
     for key in common_items_dict:
-        if common_items_dict[key] > 1: 
+        if common_items_dict[key] > 0: 
             # print common_items_dict[key]
-            # common_items_list += [key] * (common_items_dict.get(key) - 1) # works for 1 of 3 tests
-            common_items_list += [key] * common_items_dict.get(key) # works for 2 of 3 tests
+            common_items_list += [key] * common_items_dict.get(key)
     # print common_items_list
     return common_items_list
-
-    # fails 1 of 3
 
 
 def unique_common_items(list1, list2):

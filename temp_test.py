@@ -1,75 +1,176 @@
-# def common_items(list1, list2):
-#     """Produce the set of common items in two lists.
+def common_items(list1, list2):
+    """Produce the set of common items in two lists.
 
-#     Given two lists, return a list of the common items shared between 
+    Given two lists, return a list of the common items shared between 
+    the lists.
+
+    IMPORTANT: you may not not 'if ___ in ___' or the method 'index'.  
+
+
+    For example:
+
+        >>> sorted(common_items([1, 2, 3, 4], [1, 2]))
+        [1, 2]
+
+    If an item appears more than once in both lists, return it each
+    time:
+
+        >>> sorted(common_items([1, 2, 3, 4], [1, 1, 2, 2]))
+        [1, 1, 2, 2]
+
+    (And the order of which has the multiples shouldn't matter, either):
+
+        >>> sorted(common_items([1, 1, 2, 2], [1, 2, 3, 4]))
+        [1, 1, 2, 2]
+
+    """
+
+    # ###attempt1
+    # list1_dict = {}
+    # list2_dict = {}
+
+    # for item in list1:
+    #     list1_dict[item] = list1_dict.get(item, 0) + 1
+    # # print list1_dict
+    # for item in list2:
+    #     list2_dict[item] = list2_dict.get(item, 0) + 1
+    # # print list2_dict
+
+    # common_items_dict = {}
+
+    # # print "processing list1_dict:"
+    # for key in list1_dict:
+    #     # print key
+    #     common_items_dict[key] = common_items_dict.get(key, 0) + 1
+    #     # print key
+    #     # print common_items_dict.get(key, 0)
+    # # print "processing list2_dict:"
+    # for key in list2_dict:
+    #     common_items_dict[key] = common_items_dict.get(key, 0) + 1
+    #     # print key
+    #     # print common_items_dict.get(key, 0)
+    
+    # # print "list1 and list2 dicts combined is:"
+    # # print common_items_dict
+
+    # common_items_list = []
+    # for key in common_items_dict:
+    #     if common_items_dict[key] > 1: 
+    #         # print common_items_dict[key]
+    #         common_items_list += [key] * common_items_dict.get(key)
+    # # print common_items_list
+    # return common_items_list
+
+
+    ###attempt2
+
+    # """
+    # I think I can do this with sets -- but since the directions
+    # indicate I should be able to do it with lists and dicts,
+    # I want to understand how to make that work....
+    # """
+
+    # list1_dict = {}
+    # list2_dict = {}
+
+    # for item in list1:
+    #     list1_dict[item] = list1_dict.get(item, 0) + 1
+    # # print list1_dict
+    # for item in list2:
+    #     list2_dict[item] = list2_dict.get(item, 0) + 1
+    # # print list2_dict
+
+    # common_items_dict = {}
+
+    # # print "processing list1_dict:"
+    # for key in list1_dict:
+    #     # print key
+    #     common_items_dict[key] = common_items_dict.get(key, 0) + 1
+    #     # print key
+    #     # print common_items_dict.get(key, 0)
+    # # print "processing list2_dict:"
+    # for key in list2_dict:
+    #     common_items_dict[key] = common_items_dict.get(key, 0) + 1
+    #     # print key
+    #     # print common_items_dict.get(key, 0)
+    
+    # # print "list1 and list2 dicts combined is:"
+    # # print common_items_dict
+
+    # common_items_list = []
+    # for key in common_items_dict:
+    #     if common_items_dict[key] > 1: 
+    #         # print common_items_dict[key]
+    #         common_items_list += [key] * common_items_dict.get(key)
+    # # print common_items_list
+    # return common_items_list
+
+    ### attempt3
+
+    common_items_dict = {}
+
+    for item in list1:
+        common_items_dict[item] = common_items_dict.get(item, -1) + 1
+    # print "dict with list 1 items is: ", common_items_dict
+    for item in list2:
+        if common_items_dict.get(item, 0) <= 1:
+            common_items_dict[item] = common_items_dict.get(item, -1) + 1
+    # print "dict with list2 items is: ", common_items_dict
+
+    common_items_list = []
+    for key in common_items_dict:
+        if common_items_dict[key] > 0: 
+            # print common_items_dict[key]
+            common_items_list += [key] * common_items_dict.get(key)
+    # print common_items_list
+    return common_items_list
+
+
+a=[1, 2, 3, 4]
+b=[1, 2]
+c=[1, 1, 2, 2]
+
+
+print "ex1: should return [1, 2]. returns: ", common_items(a, b)
+print
+print "ex2 should return [1, 1, 2, 2]. returns: ", common_items(a, c)
+print
+print "ex3 should return [1, 1, 2, 2]. returns: ", common_items(c, a)
+
+
+# def unique_common_items(list1, list2):
+#     """Produce the set of *unique* common items in two lists.
+
+#     Given two lists, return a list of the *unique* common items shared between 
 #     the lists.
 
-#     IMPORTANT: you may not not 'if ___ in ___' or the method 'index'.  
+#     IMPORTANT: you may not not 'if ___ in ___' or the method 'index'.
 
 
-#     For example:
+#     Just like `common_items`, this should find [1, 2]:
 
-#         >>> sorted(common_items([1, 2, 3, 4], [1, 2]))
+#         >>> sorted(unique_common_items([1, 2, 3, 4], [1, 2]))
 #         [1, 2]
 
-#     If an item appears more than once in both lists, return it each
-#     time:
+#     However, now we only want unique items, so for these lists, don't show 
+#     more than 1 or 2 once:
 
-#         >>> sorted(common_items([1, 2, 3, 4], [1, 1, 2, 2]))
-#         [1, 1, 2, 2]
-
-#     (And the order of which has the multiples shouldn't matter, either):
-
-#         >>> sorted(common_items([1, 1, 2, 2], [1, 2, 3, 4]))
-#         [1, 1, 2, 2]
+#         >>> sorted(unique_common_items([1, 2, 3, 4], [1, 1, 2, 2]))
+#         [1, 2]
 
 #     """
 
-#     # ###attempt1
-#     # list1_dict = {}
-#     # list2_dict = {}
+#     #### attempt1
 
-#     # for item in list1:
-#     #     list1_dict[item] = list1_dict.get(item, 0) + 1
-#     # # print list1_dict
-#     # for item in list2:
-#     #     list2_dict[item] = list2_dict.get(item, 0) + 1
-#     # # print list2_dict
-
-#     # common_items_dict = {}
-
-#     # # print "processing list1_dict:"
-#     # for key in list1_dict:
-#     #     # print key
-#     #     common_items_dict[key] = common_items_dict.get(key, 0) + 1
-#     #     # print key
-#     #     # print common_items_dict.get(key, 0)
-#     # # print "processing list2_dict:"
-#     # for key in list2_dict:
-#     #     common_items_dict[key] = common_items_dict.get(key, 0) + 1
-#     #     # print key
-#     #     # print common_items_dict.get(key, 0)
-    
-#     # # print "list1 and list2 dicts combined is:"
-#     # # print common_items_dict
-
-#     # common_items_list = []
-#     # for key in common_items_dict:
-#     #     if common_items_dict[key] > 1: 
-#     #         # print common_items_dict[key]
-#     #         common_items_list += [key] * common_items_dict.get(key)
-#     # # print common_items_list
-#     # return common_items_list
-
-
-#     ###attempt2
 #     """
 #     I think I can do this with sets -- but since the directions
 #     indicate I should be able to do it with lists and dicts,
 #     I want to understand how to make that work....
 #     """
 
-
+#     #### reuse code from common_items attempt 1 
+#     #### then iterate thru list to weed out dupes?
+#     #### this feels REALLY cumbersome
 #     list1_dict = {}
 #     list2_dict = {}
 
@@ -102,103 +203,18 @@
 #         if common_items_dict[key] > 1: 
 #             # print common_items_dict[key]
 #             common_items_list += [key] * common_items_dict.get(key)
-#     # print common_items_list
+#     # print "unfiltered common items list is ", common_items_list
+
+#     for item1 in common_items_list:
+#         for item2 in common_items_list:
+#             if item1 == item2:
+#                 common_items_list.pop(item2)
+#     # print "final unique common items list is ",common_items_list
+
 #     return common_items_list
 
-
-# a=[1, 2, 3, 4]
-# b=[1, 2]
-# c=[1, 1, 2, 2]
-
-
-# print "ex1: ", common_items(a, b)
-# print
-# print "ex2", common_items(a, c)
-# print
-# print "ex3", common_items(c,a)
-
-
-
-
-
-
-def unique_common_items(list1, list2):
-    """Produce the set of *unique* common items in two lists.
-
-    Given two lists, return a list of the *unique* common items shared between 
-    the lists.
-
-    IMPORTANT: you may not not 'if ___ in ___' or the method 'index'.
-
-
-    Just like `common_items`, this should find [1, 2]:
-
-        >>> sorted(unique_common_items([1, 2, 3, 4], [1, 2]))
-        [1, 2]
-
-    However, now we only want unique items, so for these lists, don't show 
-    more than 1 or 2 once:
-
-        >>> sorted(unique_common_items([1, 2, 3, 4], [1, 1, 2, 2]))
-        [1, 2]
-
-    """
-
-    #### attempt1
-
-    """
-    I think I can do this with sets -- but since the directions
-    indicate I should be able to do it with lists and dicts,
-    I want to understand how to make that work....
-    """
-
-    #### reuse code from common_items attempt 1 
-    #### then iterate thru list to weed out dupes?
-    #### this feels REALLY cumbersome
-    list1_dict = {}
-    list2_dict = {}
-
-    for item in list1:
-        list1_dict[item] = list1_dict.get(item, 0) + 1
-    # print list1_dict
-    for item in list2:
-        list2_dict[item] = list2_dict.get(item, 0) + 1
-    # print list2_dict
-
-    common_items_dict = {}
-
-    # print "processing list1_dict:"
-    for key in list1_dict:
-        # print key
-        common_items_dict[key] = common_items_dict.get(key, 0) + 1
-        # print key
-        # print common_items_dict.get(key, 0)
-    # print "processing list2_dict:"
-    for key in list2_dict:
-        common_items_dict[key] = common_items_dict.get(key, 0) + 1
-        # print key
-        # print common_items_dict.get(key, 0)
-    
-    # print "list1 and list2 dicts combined is:"
-    # print common_items_dict
-
-    common_items_list = []
-    for key in common_items_dict:
-        if common_items_dict[key] > 1: 
-            # print common_items_dict[key]
-            common_items_list += [key] * common_items_dict.get(key)
-    # print "unfiltered common items list is ", common_items_list
-
-    for item1 in common_items_list:
-        for item2 in common_items_list:
-            if item1 == item2:
-                common_items_list.pop(item2)
-    # print "final unique common items list is ",common_items_list
-
-    return common_items_list
-
-print "test1: ", unique_common_items([1, 2, 3, 4], [1, 2])
-print "test2: ", unique_common_items([1, 2, 3, 4], [1, 1, 2, 2])
+# print "test1: ", unique_common_items([1, 2, 3, 4], [1, 2])
+# print "test2: ", unique_common_items([1, 2, 3, 4], [1, 1, 2, 2])
 
 
 # # # # def word_length(words):
