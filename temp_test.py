@@ -107,23 +107,23 @@ def common_items(list1, list2):
 
     ### attempt3
 
-    common_items_dict = {}
+    # common_items_dict = {}
 
-    for item in list1:
-        common_items_dict[item] = common_items_dict.get(item, -1) + 1
-    # print "dict with list 1 items is: ", common_items_dict
-    for item in list2:
-        if common_items_dict.get(item, 0) <= 1:
-            common_items_dict[item] = common_items_dict.get(item, -1) + 1
-    # print "dict with list2 items is: ", common_items_dict
+    # for item in list1:
+    #     common_items_dict[item] = common_items_dict.get(item, -1) + 1
+    # # print "dict with list 1 items is: ", common_items_dict
+    # for item in list2:
+    #     if common_items_dict.get(item, 0) <= 1:
+    #         common_items_dict[item] = common_items_dict.get(item, -1) + 1
+    # # print "dict with list2 items is: ", common_items_dict
 
-    common_items_list = []
-    for key in common_items_dict:
-        if common_items_dict[key] > 0: 
-            # print common_items_dict[key]
-            common_items_list += [key] * common_items_dict.get(key)
-    # print common_items_list
-    return common_items_list
+    # common_items_list = []
+    # for key in common_items_dict:
+    #     if common_items_dict[key] > 0: 
+    #         # print common_items_dict[key]
+    #         common_items_list += [key] * common_items_dict.get(key)
+    # # print common_items_list
+    # return common_items_list
 
 
 a=[1, 2, 3, 4]
